@@ -3,7 +3,9 @@ TAG := "SWARM"
 CXXFLAGS := -Wall -Wextra -std=c++0x
 CXXFLAGS += -O0 -ggdb -pedantic
 CXXFLAGS += -O3 -DNDEBUG
+LDFLAGS  := -L. -lswarm
 
+AR   := $(shell which ar) rcs
 CXX  := $(shell which g++)
 DIFF := $(shell which diff) -s
 RM   := $(shell which rm) -fv
@@ -14,7 +16,7 @@ all: swarm
 
 clean:
 	@$(SAY) "Cleaning generated, object, and executable files..."
-	@$(RM) *.o swarm
+	@$(RM) *.o *.a *.so swarm
 	@$(SAY) "Cleaning up temporary test results..."
 	@$(RM) test.* _.*
 
@@ -27,9 +29,16 @@ test: Interval.o
 
 .PHONY: all clean install test
 
-swarm: main.o Particle.o Swarm.o
+LIBOBJECTS  := Constraint.o Goal.o
+OBJECTS     := Particle.o Swarm.o
+
+libswarm.a: $(LIBOBJECTS)
 	@$(SAY) "LINK $@"
-	@$(CXX) $(CXXFLAGS) *.o -o $@
+	@$(AR) $@ $(LIBOBJECTS)
+
+swarm: libswarm.a $(OBJECTS)
+	@$(SAY) "LINK $@"
+	@$(CXX) $(CXXFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
 
 %.o: %.cpp
 	@$(SAY) "CCXX $<"
