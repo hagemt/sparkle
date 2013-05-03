@@ -1,9 +1,16 @@
-#include <array>
+#ifndef _SWARM_H_
+#define _SWARM_H_
+
 #include <iostream>
 #include <limits>
+#include <vector>
 
 #include "Goal.h"
 #include "Particle.h"
+
+namespace teh {
+
+namespace ps {
 
 template <size_t N>
 class Swarm : public std::vector<Particle> {
@@ -34,3 +41,9 @@ private:
 
 template <size_t N> std::ostream &
 operator<<(std::ostream &, const Swarm<N> &);
+
+}
+
+}
+
+#endif // _SWARM_H_

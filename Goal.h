@@ -1,6 +1,13 @@
+#ifndef _GOAL_H_
+#define _GOAL_H_
+
 #include <unordered_set>
 
 #include "Constraint.h"
+
+namespace teh {
+
+namespace ps {
 
 class Goal {
 	enum class Direction { NONE, UP, DOWN };
@@ -33,3 +40,9 @@ private:
 	const Direction direction;
 	std::unordered_set<Constraint> constraints;
 };
+
+} // namespace ps
+
+} // namespace teh
+
+#endif // _GOAL_H_

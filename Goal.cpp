@@ -1,5 +1,9 @@
 #include "Goal.h"
 
+namespace teh {
+
+namespace ps {
+
 static double
 __rosenbrach(double x, double y)
 {
@@ -8,3 +12,7 @@ __rosenbrach(double x, double y)
 }
 
 const Goal ROSENBRACH(Goal::Min, &__rosenbrach);
+
+} // namespace ps
+
+} // namespace teh

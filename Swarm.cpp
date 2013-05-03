@@ -1,7 +1,12 @@
 #include "Swarm.h"
+#include "Plane.h"
 
 #include <cassert>
 #include <tuple>
+
+namespace teh {
+
+namespace ps {
 
 template <size_t N> void
 Swarm<N>::step() {
@@ -19,6 +24,13 @@ template <size_t N> std::ostream &
 operator<<(std::ostream &ostr, const Swarm<N> &swarm) {
 	return ostr << "(SWARM size=" << swarm.size() << ")";
 }
+
+} // namespace ps
+
+} // namespace teh
+
+#include <iostream>
+using namespace teh::ps;
 
 #define LIMIT      10.
 #define ITERATIONS 100

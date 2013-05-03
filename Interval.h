@@ -1,5 +1,12 @@
+#ifndef _INTERVAL_H_
+#define _INTERVAL_H_
+
 #include <random>
 #include <utility>
+
+namespace teh {
+
+namespace ps {
 
 template <typename T>
 struct Interval {
@@ -26,7 +33,6 @@ protected:
 	//std::random_device device;
 };
 
-
 struct RealInterval : public Interval<double> {
 	RealInterval(double a, double b) :
 		Interval(a, b), distribution(a, b) { }
@@ -46,8 +52,16 @@ struct RealInterval : public Interval<double> {
 		return distribution(generator);
 	}
 private:
+	//static std::random_device device;
 	//typedef std::mersenne_twister_engine<double> RNG;
 	typedef std::mt19937 RNG; RNG generator;
+	//static std::default_random_engine generator(device);
 	// TODO initialize the RNG with random device?
 	std::uniform_real_distribution<> distribution;
 };
+
+} // namespace ps
+
+} // namespace teh
+
+#endif // _INTERVAL_H_
