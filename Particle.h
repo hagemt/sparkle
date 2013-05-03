@@ -4,30 +4,38 @@
 
 #include "Interval.h"
 
+struct Particle;
+
+class World {
+	typedef RECORD(RealInterval) container;
+public:
+	typedef typename container::iterator iterator;
+	/* Construction is standard base */
+	virtual ~World() { }
+	/* Methods */
+	bool inBounds(const Particle &) const;
+	iterator begin() { return bounds.begin(); }
+	iterator end() { return bounds.end(); }
+protected:
+	virtual void addBound(const RealInterval &ri) {
+		bounds.push_back(ri);
+	}
+private:
+	container bounds;
+};
+
 struct Particle {
 	RECORD(double) position, velocity;
-	explicit Particle(RECORD(RealInterval) &ri, size_t n = 3) {
-		for (size_t i = 0; i < n; ++i) {
-			position.push_back(ri[i].nextRandom());
-			velocity.push_back(ri[i].nextRandom());
+	explicit Particle(World &w) {
+		for (auto &i : w) {
+			position.push_back(i.nextRandom());
+			velocity.push_back(0.0);
 		}
 	}
 };
 
 std::ostream &operator<<(std::ostream &, const Particle &);
 
-class World {
-	RECORD(RealInterval) bounds;
-protected:
-	virtual void addBound(const RealInterval &ri) {
-		bounds.push_back(ri);
-	}
-public:
-	/* Construction is standard base */
-	virtual ~World() { }
-	/* Methods */
-	bool inBounds(const Particle &) const;
-};
 
 class Plane : public World {
 public:
