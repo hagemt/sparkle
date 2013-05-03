@@ -16,9 +16,16 @@ bool World::inBounds(const Particle &p) const {
 	return true;
 }
 
-void Particle::update(const Goal &) {
+void Particle::update(const Goal &g) {
 	// TODO use goal to define what is better
-	return;
+	switch (g.dir()) {
+	case Goal::Min:
+		break;
+	case Goal::Max:
+		break;
+	default:
+		;
+	}
 }
 
 std::ostream &operator<<(std::ostream &ostr, const Particle &p) {

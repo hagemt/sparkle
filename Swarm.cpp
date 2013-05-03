@@ -18,7 +18,9 @@ Swarm<N>::step() {
 }
 
 template <size_t N> void
-Swarm<N>::optimize(const Goal &) { }
+Swarm<N>::optimize(const Goal &g) {
+	objective = g;
+}
 
 template <size_t N> std::ostream &
 operator<<(std::ostream &ostr, const Swarm<N> &swarm) {
@@ -35,7 +37,6 @@ using namespace teh::ps;
 #define LIMIT      10.
 #define ITERATIONS 100
 #define PARTICLES  100
-extern const Goal ROSENBRACH;
 
 int
 main(void)

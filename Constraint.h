@@ -8,6 +8,7 @@ namespace teh {
 namespace ps {
 
 class Constraint {
+public:
 	bool operator==(const Constraint &) const;
 };
 
