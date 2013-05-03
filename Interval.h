@@ -9,9 +9,11 @@ struct Interval {
 	Interval(const T &a, const T &b) : min(a), max(b) { }
 	explicit Interval(const param_type &p) : min(p.first), max(p.second) { }
 	/* Provide information about the pool and results */
+	/*
 	double entropy() const {
 		return device.entropy();
 	}
+	*/
 	//virtual void reseed(double) = 0; // TODO template instead?
 	virtual T nextRandom() = 0;
 	/* Remove default construction */
@@ -21,15 +23,22 @@ struct Interval {
 	Interval<T> &operator=(const Interval<T> &) = default;
 	Interval<T> &operator=(Interval<T> &&) = default;
 protected:
-	std::random_device device;
+	//std::random_device device;
 };
 
 
 struct RealInterval : public Interval<double> {
 	RealInterval(double a, double b) :
 		Interval(a, b), distribution(a, b) { }
-	RealInterval(const param_type &p) :
+	explicit RealInterval(const param_type &p) :
 		RealInterval(p.first, p.second) { }
+	/* Remove default construction */
+	RealInterval() = delete;
+	RealInterval(const RealInterval &) = default;
+	RealInterval(RealInterval &&) = default;
+	RealInterval &operator=(const RealInterval &) = default;
+	RealInterval &operator=(RealInterval &&) = default;
+	/* Some important functionality */
 	void reseed(double seed) {
 		generator.seed(seed);
 	}

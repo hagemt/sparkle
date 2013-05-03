@@ -6,7 +6,7 @@
 
 struct Particle {
 	RECORD(double) position, velocity;
-	explicit Particle(const RECORD(Interval) &ri, size_t n = 3) {
+	explicit Particle(RECORD(RealInterval) &ri, size_t n = 3) {
 		for (size_t i = 0; i < n; ++i) {
 			position.push_back(ri[i].nextRandom());
 			velocity.push_back(ri[i].nextRandom());
@@ -32,9 +32,9 @@ public:
 class Plane : public World {
 public:
 	/* A plane is simply a 2-D World */
-	Plane(const Interval &x, const Interval &y) {
-		addBounds(x);
-		addBounds(y);
+	Plane(const RealInterval &x, const RealInterval &y) {
+		addBound(x);
+		addBound(y);
 	};
 	/* Remove default construction */
 	Plane() = delete;
