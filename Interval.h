@@ -12,21 +12,22 @@ struct Interval {
 	double entropy() const {
 		return device.entropy();
 	}
-	virtual void reseed(double) = 0; // TODO template instead?
+	//virtual void reseed(double) = 0; // TODO template instead?
 	virtual T nextRandom() = 0;
 	/* Remove default construction */
 	Interval() = delete;
 	Interval(const Interval<T> &) = default;
 	Interval(Interval<T> &&) = default;
 	Interval<T> &operator=(const Interval<T> &) = default;
-	Interval<T> &&operator=(Interval<T> &&) = default;
+	Interval<T> &operator=(Interval<T> &&) = default;
 protected:
 	std::random_device device;
-}
+};
+
 
 struct RealInterval : public Interval<double> {
-	RealInterval(double a, b) :
-		Interval(a, b), generator(device), distribution(a, b) { }
+	RealInterval(double a, double b) :
+		Interval(a, b), distribution(a, b) { }
 	RealInterval(const param_type &p) :
 		RealInterval(p.first, p.second) { }
 	void reseed(double seed) {
@@ -36,8 +37,8 @@ struct RealInterval : public Interval<double> {
 		return distribution(generator);
 	}
 private:
-	//std::mersenne_twister_engine<double> generator;
-	std::mt19937 generator;
+	//typedef std::mersenne_twister_engine<double> RNG;
+	typedef std::mt19937 RNG; RNG generator;
+	// TODO initialize the RNG with random device?
 	std::uniform_real_distribution<> distribution;
-}
-
+};

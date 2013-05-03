@@ -20,7 +20,10 @@ clean:
 
 install: test
 
-test: swarm
+test: Interval.o
+	@$(CXX) $(CXXFLAGS) Interval.o -o test.interval
+	@$(SAY) "TEST $<"
+	./test.interval 1 2 3 4 5 6 7 8 9 0
 
 .PHONY: all clean install test
 
