@@ -27,7 +27,7 @@ public:
 	virtual ~World() { }
 	/* Methods */
 	bool inBounds(const Particle &) const;
-}
+};
 
 class Plane : public World {
 public:
@@ -41,6 +41,5 @@ public:
 	Plane(const Plane &) = default;
 	Plane(Plane &&) = default;
 	Plane &operator=(const Plane &) = default;
-	Plane &&operator=(Plane &&) = default;
-}
-
+	Plane &operator=(Plane &&) = default;
+};

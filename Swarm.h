@@ -12,7 +12,7 @@ public:
 	Swarm(const Swarm &) = delete;
 	Swarm(Swarm &&) = delete;
 	Swarm<N> &operator=(const Swarm<N> &) = delete;
-	Swarm<N> &&operator=(Swarm<N> &&) = delete;
+	Swarm<N> &operator=(Swarm<N> &&) = delete;
 	/* One constructor to rule them all */
 	typedef double (*Objective)(double, double);
 	explicit Swarm(const World &w, Objective o = nullptr) :
